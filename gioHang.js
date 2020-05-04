@@ -13,6 +13,10 @@ function layGioHangTuLocalStorage() {
     return gioHang;
 }
 
+
+
+
+
 /* Yêu cầu: Thêm sản phẩm vào giỏ hàng 
     input: idSanpham, giỏ hàng 
     ouput: giỏ hàng sau khi được thêm sản phẩm */
