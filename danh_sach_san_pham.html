@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+    <script src="https://kit.fontawesome.com/f20d460fd9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="hotro.js"></script>
+    <script src="sanPham.js"></script>
+    <script src="gioHang.js"></script>
+
+</head>
+
+<body>
+    <nav id="nav-bar">
+        <ul class="menu-level-1">
+            <li class="item-level-1">
+                <a href="#" class="item-level-1-title">Quần áo</a>
+                <ul class="menu-level-2">
+                    <li class="item-level-2">
+                        <a href="#" class="item-level-2-title">Quần áo nam</a>
+                    </li>
+                    <li class="item-level-2">
+                        <a href="#" class="item-level-2-title">Quần áo nữ</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="item-level-1">
+                <a href="#" class="item-level-1-title">Phụ kiện</a>
+            </li>
+            <li class="item-level-1">
+                <a href="#" class="item-level-1-title">Đồ điện tử</a>
+                <ul class="menu-level-2">
+                    <li class="item-level-2">
+                        <a href="#" class="item-level-2-title">Điện thoại</a>
+                    </li>
+                    <li class="item-level-2">
+                        <a href="#" class="item-level-2-title">Đồ gia dụng</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="item-level-1">
+                <i class="fas fa-cart-arrow-down"></i>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- slider -->
+    <section id="slider">
+        <img src="https://cf.shopee.vn/file/2de0d30fba78411459c619a8d1a87fca" alt="" srcset="">
+    </section>
+
+    <section id="products">
+        <!-- Gawns danh sách sản phẩm vào đây -->
+    </section>
+    <footer>
+        Copyright by @AleEdu 2020
+    </footer>
+
+    <script>
+        /* Bước 1: Tạo ra danh sách sản phẩm => Load danh sách sản phẩm từ local storage lên*/
+        var jsonDanhSachSanPham = localStorage.getItem('danhSachSanPham');
+        var danhSachSanPham = JSON.parse(jsonDanhSachSanPham);
+        if (danhSachSanPham == null)
+            danhSachSanPham = new Array();
+
+        /* Bước 2: Chuyển danh sách đối tượng sản phẩm sang đoạn HTML */
+        var HTML = chuyenDanhSachDoiTuongSanPhamThanhHTML(danhSachSanPham);
+
+        /* Bước 3: Gắn đoạn HTML đó vào section products */
+        var nodeProducts = document.getElementById('products');
+        nodeProducts.innerHTML = HTML;
+
+
+        function onClickDuaVaoGioHang(idSanPham) {
+            alert('onclick đưa vào giỏ hàng với sản phẩm có ID là: ' + idSanPham);
+            var gioHangCu = layGioHangTuLocalStorage();
+            console.log('gio hang cu');
+            console.log(gioHangCu);
+
+            var gioHangMoi = themSanPhamVaoGioHang(idSanPham, gioHangCu);
+            console.log('gio hang moi');
+            console.log(gioHangMoi);
+            
+            luuGioHangVaoLocalStorage(gioHangMoi);
+        }
+    </script>
+</body>
+
+</html>

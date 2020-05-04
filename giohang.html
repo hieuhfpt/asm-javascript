@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <script src="https://kit.fontawesome.com/f20d460fd9.js" crossorigin="anonymous"></script>
+    <script src="gioHang.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .gio-hang {
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 4px #ddd;
+            margin: auto;
+            max-width: 1100px;
+            padding: 20px;
+        }
+
+        .item-gio-hang {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .item-gio-hang .hinhAnh img {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- Bước 1: Xây dựng layout cho 1 item => HTML + CSS -->
+    <div id="gio-hang" class="gio-hang">
+        <!-- Chỗ gắn HTML của danh sách sp vào  -->
+    </div>
+
+
+
+    <script>
+        hienThiGioHang();
+
+        /* Bước 2: Giả lập hàm javascript để chuyển đổi một đối tượng item giỏ hàng thành HTML
+                        - Hardcode HTML của bước 1 */
+        function chuyenDoiTuongItemGioHangSangHTML(itemGioHang) {
+            /* itemGioHang: idSanPham; soLuong */
+            /* Bước 1: idSanPham -> đối tượng sản phẩm; đầy đủ các phương thức -> xây dựng hàm layDoiTuongSanPhamTheoId(idSanPham)*/
+            /* Bước 2: lấy dữ liệu tư đối tượng sp ra để hiển thị trong đoạn HTML */
+
+            var html = '   <div class="item-gio-hang">  ' +
+                '               <div class="hinhAnh">  ' +
+                '                   <img src="https://cdn.tgdd.vn/Products/Images/42/212374/xiaomi-redmi-note-8-128gb-black-600x600.jpg">  ' +
+                '               </div>  ' +
+                '               <p class="ten">Remi Note 8</p>  ' +
+                '               <div class="gia">  ' +
+                '                   <span class="giaGoc">5000000 đ</span>  ' +
+                '                   <span class="giaBan">4000000 đ</span>  ' +
+                '               </div>  ' +
+                '               <input type="number" class="soLuong" value="1">  ' +
+                '               <p class="tongTien">4000000 đ</p>  ' +
+                '               <div class="hanhDong">  ' +
+                '                   <i class="far fa-trash-alt"></i>  ' +
+                '               </div>  ' +
+                '          </div>  ';
+            return html;
+        }
+
+        /* Bước 3: Viết hàm chuyển đổi 1 danh sách đối tượng thành HTML */
+        function chuyenDoiDanhSachItemGioHangSangHTML(danhSachItemGioHang) {
+            var htmlTong = '';
+            for (var i = 0; i < danhSachItemGioHang.length; i++) {
+                var html = chuyenDoiTuongItemGioHangSangHTML(danhSachItemGioHang[i]);
+                htmlTong = htmlTong + html;
+            }
+            return htmlTong;
+        }
+
+
+        /* Bước 4: Truy cập node cần hiển thị danh sách, và gắn HTML của danh sách đối tượng vào node đó */
+        function hienThiGioHang() {
+            /* Bước 1: Load danh sách giỏ hàng dưới local storage lên */
+            var danhSachItemGioHang = layGioHangTuLocalStorage();
+
+            /* Bước 2: Chuyển danh sách item giỏ hàng sang HTML  */
+            var html = chuyenDoiDanhSachItemGioHangSangHTML(danhSachItemGioHang);
+
+            /* Bước 3: Truy cập node gio-hang để in HTML danh sách item giỏ hàng */
+            var nodeGioHang = document.getElementById('gio-hang');
+            nodeGioHang.innerHTML = html;
+        }
+
+        function layGioHangTuLocalStorage() {
+            /* BƯớc 1: load json dưới local storage lên */
+            var jsonGioHang = localStorage.getItem('gioHang');
+
+            /* Bước 2: Chuyển json thành đối tượng */
+            var gioHang = JSON.parse(jsonGioHang);
+            return gioHang;
+
+        }
+
+
+
+    </script>
+
+    <!-- Bước 5: Xử lý hàm chuyen đối tượng thành HTML ở bước 2 -->
+
+</body>
+
+</html>

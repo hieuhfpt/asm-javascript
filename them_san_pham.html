@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm sản phẩm mới</title>
+    <script src="hotro.js"></script>
+    <script src="sanPham.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        #them-san-pham {
+            width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 1px 2px 4px #ddd;
+            padding: 40px;
+        }
+
+        #them-san-pham label,
+        input {
+            width: 100%;
+            display: block;
+        }
+
+        #them-san-pham label {
+            margin-top: 20px;
+        }
+
+        #them-san-pham input {
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #them-san-pham button {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px 20px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="them-san-pham">
+        <label for="hinhAnh">Hình ảnh</label>
+        <input type="text" id="hinhAnh"
+            value="https://cdn.tgdd.vn/Products/Images/42/60546/iphone-5s-16gb-7-400x460.png">
+
+        <label for="ten">Tên</label>
+        <input type="text" id="ten" value="Iphone 5">
+
+        <label for="giaGoc">Giá Gốc</label>
+        <input type="number" id="giaGoc" value="5000000">
+
+        <label for="phanTramGiamGia">Phần trăm giảm giá (1-100)%</label>
+        <input type="number" id="phanTramGiamGia" value="20">
+
+        <label for="khuVuc">Khu Vực</label>
+        <input type="text" id="khuVuc" value="Hà Nội">
+
+        <button onclick="onClickThemMoiSanPham()" class="btn">Thêm mới sản phẩm</button>
+    </div>
+
+    <script>
+        /* Bước 1: Tạo ra hàm để lắng nghe khi người dùng click vào button */
+        function onClickThemMoiSanPham() {
+            /* Bước 2: Truy cập toàn bộ node input để lấy dữ liệu: hinhAnh, ten, giaGoc .... */
+            var nodeHinhAnh = document.getElementById('hinhAnh');
+            var hinhAnh = nodeHinhAnh.value;
+            console.log(hinhAnh);
+
+            var nodeTen = document.getElementById('ten');
+            var ten = nodeTen.value;
+            console.log(ten);
+
+            var nodeGiaGoc = document.getElementById('giaGoc');
+            var giaGoc = nodeGiaGoc.value;
+            console.log(giaGoc);
+
+
+            var nodePhanTramGiamGia = document.getElementById('phanTramGiamGia');
+            var phanTramGiamGia = nodePhanTramGiamGia.value;
+            console.log(phanTramGiamGia);
+
+
+            var nodeKhuVuc = document.getElementById('khuVuc');;
+            var khuVuc = nodeKhuVuc.value;
+            console.log(khuVuc);
+
+            /* Bước 3: Tạo ra đối tượng từ dữ liệu input  */
+            var sanPham = TaoDoiTuongSanPham(hinhAnh, ten, giaGoc, phanTramGiamGia, khuVuc, null);
+            console.log(sanPham);
+
+            /* Bước 4: lấy danh sách cũ từ dưới local storage lên */
+            var jsonDanhSachSanPham = localStorage.getItem('danhSachSanPham');
+            var danhSachSanPham = JSON.parse(jsonDanhSachSanPham);
+            if (danhSachSanPham == null) {
+                danhSachSanPham = new Array();
+            }
+
+            console.log(danhSachSanPham);
+
+            /* Bước 5: Thêm sản phẩm người dùng nhập vào trong danh sách cũ */
+            danhSachSanPham.push(sanPham);
+
+            /* Bước 6: Cập nhật lại danh sách xuống local storage */
+            var jsonDanhSachSanPham = JSON.stringify(danhSachSanPham);
+            localStorage.setItem('danhSachSanPham', jsonDanhSachSanPham);
+            alert('Thêm sản phẩm thành công');
+        }
+
+    </script>
+</body>
+
+</html>
